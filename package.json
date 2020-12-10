@@ -1,0 +1,19 @@
+{
+  "name": "crudify",
+  "version": "1.0.0",
+  "description": "Quickly create express.js CRUD api endpoints using Sequelize.js models.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/storrdev/crudify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/storrdev/crudify/issues"
+  },
+  "homepage": "https://github.com/storrdev/crudify#readme"
+}
