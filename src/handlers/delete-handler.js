@@ -1,9 +1,36 @@
-const deleteHandler = (model) => async (req, res) => {
-  const item = await model.findByPk(req.params.id);
+const deleteHandler = (model, options = {}) => async (req, res) => {
+  let transaction = null;
 
-  await item.destroy();
+  try {
+    if (options.transaction) {
+      transaction = await model.sequelize.transaction();
+    }
+    if (options.before) options.before(req, model, transaction);
 
-  res.json({ message: `Your ${model.name} was deleted successfully`, item });
+    const item = await model.findByPk(req.params.id);
+
+    await item.destroy({ transaction });
+
+    if (options.afterDelete) options.afterDelete(item, transaction);
+
+    await transaction.commit();
+
+    if (options.afterCommit) options.afterCommit(item, res);
+
+    res.json({ message: `Your ${model.name} was deleted successfully`, item });
+  } catch (error) {
+    if (options.onError) options.onError(res, error, transaction);
+
+    if (transaction) await transaction.rollback();
+
+    console.log(error);
+    res.status(500).json({
+      message:
+        options.errorMessage ||
+        `There was a problem deleting your ${model.name}`,
+      error: error.message,
+    });
+  }
 };
 
 module.exports = deleteHandler;
