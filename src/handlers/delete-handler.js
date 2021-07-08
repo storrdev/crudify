@@ -2,12 +2,17 @@ const deleteHandler = (model, options = {}) => async (req, res) => {
   let transaction = null;
 
   try {
-    if (options.transaction) {
+    // if (options.transaction) {
       transaction = await model.sequelize.transaction();
-    }
+    // }
     if (options.before) options.before(req, model, transaction);
 
     const item = await model.findByPk(req.params.id);
+
+    if (!item) {
+        res.status(404).json({ message: `Could not find ${model.name} with id: ${req.params.id}` });
+        return;
+    }
 
     await item.destroy({ transaction });
 

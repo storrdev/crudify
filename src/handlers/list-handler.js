@@ -10,12 +10,16 @@ const listHandler = (model, options = {}) => async (req, res) => {
     const params = {
       limit: 25,
       where: {},
+      distinct: true
     };
 
     const { query } = req;
 
     if (!query.where) {
-      if (query.perPage) params.limit = parseInt(query.perPage);
+      if (query.perPage) {
+          if (query.perPage === "0") { delete params.limit; }
+          else { params.limit = parseInt(query.perPage); }
+    }
       if (query.page) params.offset = params.limit * parseInt(query.page - 1);
 
       // look for model attributes in the params
@@ -67,7 +71,13 @@ const listHandler = (model, options = {}) => async (req, res) => {
       params.where = convertQueryWhere(parsed);
     }
 
-    const items = await model.findAll(params);
+    if (query.include) {
+        params.include = query.include.split(',');
+    }
+    
+    console.log(params);
+
+    const items = await model.findAndCountAll(params);
 
     if (options.after) options.after(items, res);
 

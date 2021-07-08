@@ -18,7 +18,11 @@ const createCrudRoutes = (model, options = {}) => {
   router.get("/:id", getByIdHandler(model, options.getById));
 
   // Update
-  router.patch("/:id", updateHandler(model, options.update));
+  if (options?.update?.middleware) {
+    router.patch("/:id", options.update.middleware, updateHandler(model, options.update));
+  } else {
+    router.patch("/:id", updateHandler(model, options.update));
+  }
 
   // Delete
   router.delete("/:id", deleteHandler(model, options.delete));
