@@ -1,0 +1,5 @@
+7/8/21
+
+Added testing to crudify, setup the docker for a test database, wrote a simple test for createCrudRoutes,
+and started on the createHandler() test in tests/handlers/create-handler.test.js. I think I will need
+to test it with supertest/superagent like in springus-api-v2.
