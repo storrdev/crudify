@@ -14,7 +14,7 @@ module.exports = {
          * }], {});
          */
         await queryInterface.bulkInsert(
-            'DataType',
+            'DataTypes',
             [...Array(100).keys()].map((_) => ({
                 string: faker.datatype.string(),
                 integer: faker.datatype.number(),
@@ -32,6 +32,6 @@ module.exports = {
          * Example:
          * await queryInterface.bulkDelete('People', null, {});
          */
-        await queryInterface.bulkDelete('DataType', null, {});
+        await queryInterface.bulkDelete('DataTypes', null, {});
     },
 };
