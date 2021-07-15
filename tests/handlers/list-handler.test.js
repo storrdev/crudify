@@ -1,30 +1,11 @@
 const path = require('path');
 const qs = require('qs');
 const request = require('supertest');
-const createCrudRoutes = require(path.resolve('src/index'));
-const express = require('express');
 const moment = require('moment');
-// const app = express();
-
-const { DataType } = require(path.resolve('src/models'));
 
 const app = require(path.resolve('tests/app'));
 
 describe('List Handler', () => {
-    // beforeAll(() => {
-    //     app.use(
-    //         '/data-types',
-    //         createCrudRoutes(DataType, {
-    //             list: {
-    //                 before: (req, model) => {
-    //                     req.fake = 'fake data';
-    //                     model.fake = 'fake data';
-    //                 },
-    //             },
-    //         })
-    //     );
-    // });
-
     test('should list the data-types', async () => {
         const { body, statusCode } = await request(app).get('/data-types');
         expect(statusCode).toBe(200);
