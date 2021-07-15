@@ -44,19 +44,12 @@ const listHandler =
                 });
 
                 // Check for special req.query params
-                const { createdBefore, createdAfter, deletedBefore, deletedAfter, updatedBefore, updatedAfter } =
-                    req.query;
+                const { createdBefore, createdAfter, updatedBefore, updatedAfter } = req.query;
 
                 if (createdBefore || createdAfter) {
                     params.where.createdAt = {};
                     if (createdBefore) params.where.createdAt[Op.lt] = createdBefore;
                     if (createdAfter) params.where.createdAt[Op.gt] = createdAfter;
-                }
-
-                if (deletedBefore || deletedAfter) {
-                    params.where.deletedAt = {};
-                    if (deletedBefore) params.where.deletedAt[Op.lt] = deletedBefore;
-                    if (deletedAfter) params.where.deletedAt[Op.gt] = deletedAfter;
                 }
 
                 if (updatedBefore || updatedAfter) {

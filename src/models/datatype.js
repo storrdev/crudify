@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             // this.belongsToMany(models.Role, { through: 'UserRoles' });
             // this.belongsToMany(models.Organization, { through: 'UserOrganizations' });
+            this.hasMany(models.Related);
         }
 
         // getRoles = () => {
@@ -36,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: 'DataType',
+            paranoid: true,
         }
     );
     return DataType;
