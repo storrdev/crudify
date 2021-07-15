@@ -1,3 +1,7 @@
+7/14/21
+
+Removed deletedBefore & deletedAfter query params for the list handler since sequelize does not support that kind of query.
+
 7/8/21
 
 Added testing to crudify, setup the docker for a test database, wrote a simple test for createCrudRoutes,
