@@ -2,7 +2,7 @@ const env = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env.develo
 require('dotenv').config({ path: env });
 
 module.exports = {
-    username: process.env.CI_DB_USERNAME || 'root', // Docker compose username
+    username: process.env.CI_DB_USERNAME || 'test_user', // Docker compose username
     password: process.env.CI_DB_PASSWORD || 'example', // Docker compose password
     database: process.env.CI_DB_NAME || 'database_test', // Docker compose database
     host: process.env.CI_DB_HOST || '127.0.0.1',
