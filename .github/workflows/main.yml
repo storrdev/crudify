@@ -23,3 +23,8 @@ jobs:
               run: yarn install
             - name: Run tests
               run: yarn test
+              env:
+                  CI_DB_USERNAME: user
+                  CI_DB_PASSWORD: password
+                  CI_DB_NAME: test
+                  CI_DB_PORT: ${{ job.services.mysql.ports[3306] }}
