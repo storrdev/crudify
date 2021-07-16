@@ -1,0 +1,30 @@
+name: CI
+on: push
+jobs:
+    BuildTest:
+        runs-on: ubuntu-latest
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_USER: test_user
+                    MYSQL_PASSWORD: example
+                    MYSQL_DATABASE: database_test
+                    MYSQL_ROOT_PASSWORD: example
+                ports:
+                    - 3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: '14'
+            - name: Install modules
+              run: yarn install
+            - name: Run tests
+              run: yarn test
+              env:
+                  CI_DB_USERNAME: test_user
+                  CI_DB_PASSWORD: example
+                  CI_DB_NAME: database_test
+                  CI_DB_PORT: ${{ job.services.mysql.ports[3306] }}
