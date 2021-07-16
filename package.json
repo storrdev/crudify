@@ -27,6 +27,7 @@
         "sequelize": "^6.3.5"
     },
     "devDependencies": {
+        "body-parser": "^1.19.0",
         "faker": "^5.5.3",
         "jest": "^27.0.6",
         "moment": "^2.29.1",

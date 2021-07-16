@@ -2,10 +2,19 @@ const path = require('path');
 const qs = require('qs');
 const request = require('supertest');
 const moment = require('moment');
+const { initDB, clearDB } = require(path.resolve('tests/test-utils/db'));
 
 const app = require(path.resolve('tests/app'));
 
 describe('List Handler', () => {
+    beforeAll(() => {
+        return initDB();
+    });
+
+    afterAll(() => {
+        return clearDB();
+    });
+
     test('should list the data-types', async () => {
         const { body, statusCode } = await request(app).get('/data-types');
         expect(statusCode).toBe(200);

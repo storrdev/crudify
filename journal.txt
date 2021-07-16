@@ -2,6 +2,13 @@
 
 Removed deletedBefore & deletedAfter query params for the list handler since sequelize does not support that kind of query.
 
+Finished writing list-handler.test.js
+
+Started writing create-handler.test.js
+
+It doesn't look like create-handler has everything necessary to be feature complete. Thinking about skipping
+over adding those so I can get to work on springus api v2
+
 7/8/21
 
 Added testing to crudify, setup the docker for a test database, wrote a simple test for createCrudRoutes,

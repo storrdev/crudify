@@ -73,8 +73,6 @@ const listHandler =
 
             res.json(items);
         } catch (error) {
-            console.log(error);
-
             if (options.onError) options.onError(res, error);
 
             res.status(500).json({
