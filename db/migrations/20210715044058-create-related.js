@@ -6,13 +6,13 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.BIGINT,
+                type: Sequelize.INTEGER,
             },
             value: {
                 type: Sequelize.STRING,
             },
             dataTypeId: {
-                type: Sequelize.BIGINT,
+                type: Sequelize.INTEGER,
                 references: {
                     model: {
                         tableName: 'DataTypes',

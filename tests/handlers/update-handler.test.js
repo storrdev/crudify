@@ -6,7 +6,7 @@ const { initDB, clearDB } = require(path.resolve('tests/test-utils/db'));
 
 const createApp = require(path.resolve('tests/app'));
 
-describe('Create Handler', () => {
+describe('Update Handler', () => {
     beforeAll(() => {
         return initDB();
     });
@@ -15,14 +15,14 @@ describe('Create Handler', () => {
         return clearDB();
     });
 
-    const app = createApp();
+    const id = 9;
+    const string = 'update-test-string';
 
-    const string = 'create-test-string';
-    const integer = '22';
-    const float = 2.22;
-
-    test('should create a data-type', async () => {
-        const { body, statusCode } = await request(app).post('/data-types').send({
+    test('should update a data-type', async () => {
+        const app = createApp();
+        const integer = 777;
+        const float = 7.77;
+        const { body, statusCode } = await request(app).patch(`/data-types/${id}`).send({
             string,
             integer,
             float,
@@ -36,9 +36,18 @@ describe('Create Handler', () => {
     });
 
     test('should return an error', async () => {
-        const { body, statusCode } = await request(app).post('/data-types').send({
+        const app = createApp({
+            update: {
+                middleware: (req, res, next) => {
+                    next();
+                },
+            },
+        });
+        const integer = 'NaN';
+        const float = 'NaN';
+        const { body, statusCode } = await request(app).patch(`/data-types/${id}`).send({
             string,
-            integer: 'NaN',
+            integer,
             float,
         });
         expect(typeof body.message).toBe('string');

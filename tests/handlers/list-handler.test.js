@@ -4,7 +4,7 @@ const request = require('supertest');
 const moment = require('moment');
 const { initDB, clearDB } = require(path.resolve('tests/test-utils/db'));
 
-const app = require(path.resolve('tests/app'));
+const createApp = require(path.resolve('tests/app'));
 
 describe('List Handler', () => {
     beforeAll(() => {
@@ -14,6 +14,8 @@ describe('List Handler', () => {
     afterAll(() => {
         return clearDB();
     });
+
+    const app = createApp();
 
     test('should list the data-types', async () => {
         const { body, statusCode } = await request(app).get('/data-types');

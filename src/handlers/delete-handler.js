@@ -5,7 +5,7 @@ const deleteHandler =
 
         try {
             // if (options.transaction) {
-            transaction = await model.sequelize.transaction();
+            // transaction = await model.sequelize.transaction();
             // }
             if (options.before) options.before(req, model, transaction);
 
@@ -20,17 +20,17 @@ const deleteHandler =
 
             if (options.afterDelete) options.afterDelete(item, transaction);
 
-            await transaction.commit();
+            // await transaction.commit();
 
-            if (options.afterCommit) options.afterCommit(item, res);
+            // if (options.afterCommit) options.afterCommit(item, res);
 
             res.json({ message: `Your ${model.name} was deleted successfully`, item });
         } catch (error) {
             if (options.onError) options.onError(res, error, transaction);
 
-            if (transaction) await transaction.rollback();
+            // if (transaction) await transaction.rollback();
 
-            console.log(error);
+            // console.log(error);
             res.status(500).json({
                 message: options.errorMessage || `There was a problem deleting your ${model.name}`,
                 error: error.message,
