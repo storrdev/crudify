@@ -10,6 +10,12 @@ const updateHandler =
             if (options.before) options.before(req, model, transaction);
 
             const original = await model.findByPk(req.params.id);
+            if (!original) {
+                res.status(404).json({
+                    message: 'That item could not be found',
+                });
+                return;
+            }
 
             Object.keys(req.body).forEach((key) => {
                 const value = req.body[key];

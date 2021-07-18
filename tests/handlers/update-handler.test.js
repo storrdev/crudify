@@ -54,4 +54,14 @@ describe('Update Handler', () => {
         expect(typeof body.error).toBe('string');
         expect(statusCode).toBe(500);
     });
+
+    test('should return a 404 error', async () => {
+        const app = createApp();
+
+        const { body, statusCode } = await request(app).patch(`/data-types/99999999`).send({
+            string: 'random words',
+        });
+        expect(statusCode).toBe(404);
+        expect(typeof body.message).toBe('string');
+    });
 });
